@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH --job-name=siz
+#SBATCH --time=12:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=10
+#SBATCH --mem=5000
+
+pwd
+
+module purge # Remove all loaded modules
+
+source /data/$USER/envvar.sh # Set environment variables for Geant4
+export GC_GATE_EXE_DIR=$EBROOTGATE/bin/ # Set Gate dir for jobsplitter
+export GC_DOT_GATE_DIR=/home/$USER/ # Set dir for saving split files
+
+module load GATE/8.1.p01-foss-2018a-Python-2.7.14 # Load GATE
+
+gjs -numberofsplits 10 -clusterplatform openmosix mac/"$File".mac # CHANGE! Split file
+
+# Append wait command at the end of the file and make it excecutable
+grep -qxF 'include "wait"' mac/"$File".submit || echo "wait" >> mac/"$File".submit # CHANGE NAME
+chmod u+x mac/"$File".submit # CHANGE
+
+# Excecute script
+mac/"$File".submit #CHANGE

@@ -1,0 +1,289 @@
+#=====================================================
+# Multiple scattering experiment at UMCG.
+# pre-experiment simulation of the set-up (target is at a 1m
+# or 2m) distance from the scatter foil)
+#=====================================================
+
+
+#=====================================================
+# VERBOSE and VISUALISATION
+#=====================================================
+
+#/control/execute mac/verbose.mac
+
+
+/gate/verbose Physic 1
+#=====================================================
+# GEOMETRY
+#=====================================================
+
+/gate/geometry/setMaterialDatabase                 data/GateMaterials.db
+
+/gate/geometry/setIonisationPotential Water 78 eV
+/gate/geometry/setIonisationPotential Air 85.7 eV
+/gate/geometry/setIonisationPotential PMMA 74.0 eV
+/gate/geometry/setIonisationPotential Air_JM 85.7 eV
+
+# WORLD
+/gate/world/setMaterial                      Air
+/gate/world/geometry/setXLength              7.0 m
+/gate/world/geometry/setYLength              7.0 m
+/gate/world/geometry/setZLength              7.0 m
+
+/gate/world/daughters/name              		AramicaFoil
+/gate/world/daughters/insert            		cylinder
+/gate/AramicaFoil/geometry/setRmax          3 cm
+/gate/AramicaFoil/geometry/setRmin          0 mm
+/gate/AramicaFoil/geometry/setHeight        50 um
+
+/gate/AramicaFoil/placement/setTranslation  0.0 0.0 -4 cm
+/gate/AramicaFoil/setMaterial               Aramica
+/gate/AramicaFoil/vis/setVisible            1
+/gate/AramicaFoil/vis/setColor              red
+/gate/AramicaFoil/vis/forceWireframe
+/gate/AramicaFoil/describe
+
+/gate/world/daughters/name                  S1
+/gate/world/daughters/insert            box
+/gate/S1/geometry/setXLength      2.5 cm
+/gate/S1/geometry/setYLength      2.5 cm
+/gate/S1/geometry/setZLength      1.3 cm
+
+/gate/S1/placement/setTranslation           0.0 0.0 0.1 cm   #Change!
+/gate/S1/setMaterial                        AluminiumSc
+/gate/S1/vis/setVisible                     1
+/gate/S1/vis/setColor                       red
+/gate/S1/vis/forceWireframe
+/gate/S1/describe
+
+/gate/world/daughters/name                  Colli4_Square
+/gate/world/daughters/insert                box
+/gate/Colli4_Square/geometry/setXLength     25 cm  #G4double Collimator4_SideLength=40.0*cm;
+/gate/Colli4_Square/geometry/setYLength     12.5 cm
+/gate/Colli4_Square/geometry/setZLength     5.5 cm #G4double Collimator4_ThickNess=4.5*cm;
+/gate/Colli4_Square/placement/setTranslation 0.0 -6.25 132.25 cm
+/gate/Colli4_Square/setMaterial             KVIBrass3
+/gate/Colli4_Square/vis/setVisible          1
+/gate/Colli4_Square/vis/setColor            yellow
+/gate/Colli4_Square/vis/forceWireframe
+/gate/Colli4_Square/describe
+/gate/Colli4_Square/daughters/name          Colli4_cyl1
+/gate/Colli4_Square/daughters/insert        cylinder
+/gate/Colli4_cyl1/geometry/setRmax               7.475 cm
+/gate/Colli4_cyl1/geometry/setRmin               0 cm
+/gate/Colli4_cyl1/geometry/setHeight             4.525 cm
+/gate/Colli4_cyl1/placement/setTranslation       0.0 6.25 0.0 cm
+/gate/Colli4_cyl1/setMaterial                    Air
+/gate/Colli4_cyl1/vis/setVisible                 1
+/gate/Colli4_cyl1/vis/setColor                   white
+/gate/Colli4_cyl1/vis/forceWireframe
+/gate/Colli4_cyl1/describe
+/gate/Colli4_Square/daughters/name          Colli4_cyl2
+/gate/Colli4_Square/daughters/insert        cylinder
+/gate/Colli4_cyl2/geometry/setRmax               7.01 cm
+/gate/Colli4_cyl2/geometry/setRmin               0 cm
+/gate/Colli4_cyl2/geometry/setHeight             0.4875 cm
+/gate/Colli4_cyl2/placement/setTranslation       0.0 6.25 2.50625 cm
+/gate/Colli4_cyl2/setMaterial                    Air
+/gate/Colli4_cyl2/vis/setVisible                 1
+/gate/Colli4_cyl2/vis/setColor                   white
+/gate/Colli4_cyl2/vis/forceWireframe
+/gate/Colli4_cyl2/describe
+/gate/Colli4_Square/daughters/name          Colli4_cyl3
+/gate/Colli4_Square/daughters/insert        cylinder
+/gate/Colli4_cyl3/geometry/setRmax               7.01 cm
+/gate/Colli4_cyl3/geometry/setRmin               0 cm
+/gate/Colli4_cyl3/geometry/setHeight             0.4875 cm
+/gate/Colli4_cyl3/placement/setTranslation       0.0 6.25 -2.50625 cm
+/gate/Colli4_cyl3/setMaterial                    Air
+/gate/Colli4_cyl3/vis/setVisible                 1
+/gate/Colli4_cyl3/vis/setColor                   white
+/gate/Colli4_cyl3/vis/forceWireframe
+/gate/Colli4_cyl3/describe
+
+
+
+/gate/world/daughters/name              EBT
+/gate/world/daughters/insert            box
+/gate/EBT/geometry/setXLength      20 cm
+/gate/EBT/geometry/setYLength      20 cm
+/gate/EBT/geometry/setZLength      0.267 mm
+/gate/EBT/placement/setTranslation 0.0 0 150 cm
+/gate/EBT/setMaterial              EBT3
+/gate/EBT/vis/setVisible           1
+/gate/EBT/vis/setColor             cyan
+/gate/EBT/vis/forceWireframe
+/gate/EBT/describe
+
+/gate/EBT/daughters/name              Buildup
+/gate/EBT/daughters/insert            box
+/gate/Buildup/geometry/setXLength      20 cm
+/gate/Buildup/geometry/setYLength      20 cm
+/gate/Buildup/geometry/setZLength      0.12 mm
+/gate/Buildup/placement/setTranslation 0.0 0 -0.0735 mm
+/gate/Buildup/setMaterial              Polyester
+/gate/Buildup/vis/setVisible           1
+/gate/Buildup/vis/setColor             cyan
+/gate/Buildup/vis/forceWireframe
+/gate/Buildup/describe
+/gate/EBT/daughters/name              Buildup1
+/gate/EBT/daughters/insert            box
+/gate/Buildup1/geometry/setXLength      20 cm
+/gate/Buildup1/geometry/setYLength      20 cm
+/gate/Buildup1/geometry/setZLength      0.12 mm
+/gate/Buildup1/placement/setTranslation 0.0 0 0.0735 mm
+/gate/Buildup1/setMaterial              Polyester
+/gate/Buildup1/vis/setVisible           1
+/gate/Buildup1/vis/setColor             green
+/gate/Buildup1/vis/forceWireframe
+/gate/Buildup1/describe
+/gate/EBT/daughters/name              target
+/gate/EBT/daughters/insert            box
+/gate/target/geometry/setXLength      20 cm
+/gate/target/geometry/setYLength      20 cm
+/gate/target/geometry/setZLength      0.027 mm
+/gate/target/placement/setTranslation 0.0 0 0.0 mm
+/gate/target/setMaterial              EBT3
+/gate/target/vis/setVisible           1
+/gate/target/vis/setColor             red
+/gate/target/vis/forceWireframe
+/gate/target/describe
+#=====================================================
+# PHYSICS
+#=====================================================
+
+/gate/physics/addPhysicsList QGSP_BIC_EMZ
+
+
+/gate/physics/displayCuts
+/gate/physics/print output/physics.txt
+
+#=====================================================
+# CUTS
+#=====================================================
+
+/gate/physics/Gamma/SetCutInRegion      world 5 mm
+/gate/physics/Electron/SetCutInRegion   world 5 mm
+/gate/physics/Positron/SetCutInRegion   world 5 mm
+/gate/physics/Proton/SetCutInRegion 	   world 5 mm
+
+/gate/physics/Gamma/SetCutInRegion      target 0.01 mm
+/gate/physics/Electron/SetCutInRegion   target 0.01 mm
+/gate/physics/Positron/SetCutInRegion   target 0.01 mm
+/gate/physics/Proton/SetCutInRegion 	   target 0.01 mm
+
+/gate/physics/Gamma/SetCutInRegion      S1 0.1 mm
+/gate/physics/Electron/SetCutInRegion   S1 0.1 mm
+/gate/physics/Positron/SetCutInRegion   S1 0.1 mm
+/gate/physics/Proton/SetCutInRegion 	  S1 0.1 mm
+
+#Tracking cut
+#/gate/physics/SetMinRemainingRangeInRegion target 2 mm
+#/gate/physics/ActivateSpecialCuts e-
+#/gate/physics/ActivateSpecialCuts proton
+
+#/gate/physics/SetMaxStepSizeInRegion world 1 mm
+#/gate/physics/SetMaxStepSizeInRegion target 1 mm
+#/gate/physics/SetMaxStepSizeInRegion S1 1 mm
+#/gate/physics/ActivateStepLimiter proton
+#/gate/physics/ActivateStepLimiter deuteron
+#/gate/physics/ActivateStepLimiter triton
+#/gate/physics/ActivateStepLimiter alpha
+#/gate/physics/ActivateStepLimiter GenericIon
+
+#=====================================================
+# OUTPUT - DETECTOR
+#=====================================================
+
+/gate/actor/addActor               SimulationStatisticActor stat
+/gate/actor/stat/save              output/stat.txt
+/gate/actor/stat/saveEveryNSeconds 60
+
+
+#===================================================
+# FluenceActor
+
+
+/gate/actor/addActor FluenceActor      Detector
+/gate/actor/Detector/save              output/fluence.txt
+/gate/actor/Detector/attachTo          target
+/gate/actor/Detector/stepHitType       random
+/gate/actor/Detector/setResolution     200 200 1
+/gate/actor/Detector/enableScatter     true
+#/gate/actor/Detector/addFilter particleFilter
+#/gate/actor/Detector/particleFilter/addParticle proton
+
+#Dose actor
+/gate/actor/addActor 			              DoseActor Score0
+/gate/actor/Score0/save			            output/dosemass.txt
+/gate/actor/Score0/attachTo		          target # Change to scoring volume
+/gate/actor/Score0/saveEveryNSeconds 	  60
+/gate/actor/Score0/stepHitType		      random
+/gate/actor/Score0/setResolution 		    200 200 1
+/gate/actor/Score0/enableDose		        true
+/gate/actor/Score0/enableUncertaintyDose 	true
+/gate/actor/Score0/enableEdep		        true
+/gate/actor/Score0/setDoseAlgorithm     MassWeighting
+
+#/gate/actor/addActor 			              DoseActor Score1
+#/gate/actor/Score1/save			            output/dosevol.txt
+#/gate/actor/Score1/attachTo		          target # Change to scoring volume
+#/gate/actor/Score1/saveEveryNSeconds 	  60
+#/gate/actor/Score1/stepHitType		      random
+#/gate/actor/Score1/setResolution 		    200 1 1
+#/gate/actor/Score1/enableDose		        true
+#/gate/actor/Score1/enableUncertaintyDose 	true
+#/gate/actor/Score1/enableEdep		        true
+
+
+#/gate/actor/addActor    LETActor       MyActor2
+#/gate/actor/MyActor2/save               output/LET.txt
+#/gate/actor/MyActor2/attachTo           target
+#/gate/actor/MyActor2/setResolution      200 1 1
+#/gate/actor/MyActor2/setType            DoseAveraged
+#/gate/actor/MyActor2/setRestricted      false
+#/gate/actor/MyActor2/addFilter particleFilter
+#/gate/actor/MyActor2/particleFilter/addParticle alpha
+#/gate/actor/MyActor2/doParallelCalculation true
+
+#=====================================================
+# INITIALISATION
+#=====================================================
+
+/gate/run/initialize
+
+#=====================================================
+# BEAMS
+#=====================================================
+
+/gate/source/addSource 			protonbeam gps
+/gate/source/protonbeam/gps/particle proton
+/gate/source/protonbeam/gps/direction 	0 0 1
+
+# Geometry
+/gate/source/protonbeam/gps/pos/type 	 Beam
+/gate/source/protonbeam/gps/pos/shape 	Circle
+/gate/source/protonbeam/gps/pos/radius 	0 mm
+/gate/source/protonbeam/gps/pos/sigma_r 0 cm
+/gate/source/protonbeam/gps/pos/centre 	0 0 -5 cm
+
+# Energy
+/gate/source/protonbeam/gps/ene/type 	  Mono
+/gate/source/protonbeam/gps/ene/mono 	  150 MeV
+/gate/source/protonbeam/gps/ene/sigma 	0 MeV
+#/gate/source/protonbeam/gps/ang/type iso
+#/gate/source/protonbeam/gps/ang/mintheta 0 rad
+#/gate/source/protonbeam/gps/ang/maxtheta 0 rad
+#/gate/source/protonbeam/gps/ang/rot1 	  0 1 0
+#/gate/source/protonbeam/gps/ang/rot2 	  1 0 0
+
+
+#=====================================================
+# START BEAMS
+#=====================================================
+#/control/execute mac/visu.mac
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed auto
+/gate/application/setTotalNumberOfPrimaries 20000
+/run/printProgress 1
+/gate/application/start
